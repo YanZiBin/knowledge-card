@@ -17,7 +17,20 @@ A [Claude Code mod](https://claude.dev/blog/getting-started-with-claude-code-mod
 /reload-plugins
 ```
 
+这个插件没有上架 Claude 官方目录，仓库本身就是一个插件市场，所以上面三行直接从 GitHub 安装。网络访问 GitHub 不方便的话，可以先把仓库克隆到本地，再从本地文件夹安装：
+
+```
+git clone https://github.com/YanZiBin/knowledge-card
+```
+```
+/plugin marketplace add ./knowledge-card
+/plugin install knowledge-card@knowledge-card
+/reload-plugins
+```
+
 需要支持 mod 的 Claude Code（2.1.287 或更新）。mod 的接口可能随版本变化。吉祥物用 `Svg` 元素画，目前只在**桌面版**里测过；终端里没有这个元素，会去掉吉祥物，只留卡片文字（未测试）。
+It is not listed in Claude's official directory; the repo itself is the marketplace, so the commands above install straight from GitHub. You can also `git clone` it and run `/plugin marketplace add ./knowledge-card` instead.
+
 Needs a Claude Code build that supports mods (2.1.287 or later). The mascot is drawn with the `Svg` element and has only been tried in the desktop app; elsewhere it is left out (untested).
 
 ## 它怎么工作 / How it works
