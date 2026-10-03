@@ -1,0 +1,19 @@
+{
+  "name": "knowledge-card",
+  "version": "0.2.0",
+  "description": "While the AI works, a plain-language knowledge card above the prompt explains a concept from the current task. Click 我知道啦 for the next one.",
+  "author": {
+    "name": "Zibin Yan",
+    "url": "https://github.com/YanZiBin"
+  },
+  "homepage": "https://github.com/YanZiBin/knowledge-card",
+  "repository": "https://github.com/YanZiBin/knowledge-card",
+  "license": "MIT",
+  "keywords": [
+    "mod",
+    "learning",
+    "knowledge-card",
+    "mascot"
+  ],
+  "types": "./types/index.d.ts"
+}

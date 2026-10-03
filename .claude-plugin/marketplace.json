@@ -1,0 +1,15 @@
+{
+  "name": "knowledge-card",
+  "description": "A Claude Code mod that shows a plain-language knowledge card (with a pixel mascot) above the prompt while the AI works.",
+  "owner": {
+    "name": "Zibin Yan",
+    "url": "https://github.com/YanZiBin"
+  },
+  "plugins": [
+    {
+      "name": "knowledge-card",
+      "source": "./plugins/knowledge-card",
+      "description": "A knowledge card above the prompt that explains a concept from the current task; click 我知道啦 to get the next one."
+    }
+  ]
+}
