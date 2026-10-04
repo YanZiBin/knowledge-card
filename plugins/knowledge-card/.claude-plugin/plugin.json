@@ -1,6 +1,6 @@
 {
   "name": "knowledge-card",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "While the AI works, a plain-language knowledge card above the prompt explains a concept from the current task. Click 我知道啦 for the next one.",
   "author": {
     "name": "Zibin Yan",

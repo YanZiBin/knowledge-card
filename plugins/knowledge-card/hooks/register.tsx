@@ -32,10 +32,16 @@ const SYSTEM = `你是一个“知识卡片”作者。用户在等 AI 干活，
 // anything that looks like a credential is masked before it leaves for the model
 const redact = (s: string) =>
   s
+    .replace(/-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]*?(?:-----END [A-Z ]*PRIVATE KEY-----|$)/g, '***')
     .replace(/Bearer\s+\S+/gi, 'Bearer ***')
-    .replace(/\b(?:sk|pk|ghp|gho|ghs|xox[bpas]|AKIA)[-_A-Za-z0-9]{8,}/g, '***')
+    .replace(/\b(?:sk|pk|ghp|gho|ghs|github_pat|glpat|xox[bpas]|AKIA|AIza)[-_A-Za-z0-9]{8,}/g, '***')
+    .replace(/\beyJ[\w-]{8,}\.[\w-]{8,}\.[\w-]*/g, '***')
+    .replace(/(\w+:\/\/[^\s:@/]+:)[^\s@/]+@/g, '$1***@')
     .replace(/((?:token|key|secret|passw(?:or)?d|auth\w*)["']?\s*[=:]\s*["']?)\S+/gi, '$1***')
     .replace(/(--(?:\w+-)?(?:token|key|secret|passw(?:or)?d|auth\w*)\s+)\S+/gi, '$1***')
+
+// why the small model gave no reply, in the words the person reads
+const REASONS: Record<string, string> = { 'api-error': '接口出错', 'empty-reply': '回复为空', aborted: '被中断' }
 
 // a short, readable trace of one tool call: what it was and what it touched
 const brief = (tool: string, e: Record<string, unknown>) => {
@@ -133,7 +139,7 @@ export const register: Register = on => {
           if (!r.isAnswered) {
             if (!hasWarned) {
               hasWarned = true
-              $.ui.toast(`知识卡片：小模型没有回复（${r.reason}）`)
+              $.ui.toast(`知识卡片：小模型没有回复（${REASONS[r.reason] ?? r.reason}）`)
             }
             return
           }
@@ -240,7 +246,7 @@ export const register: Register = on => {
     const mine = (
       <Box flexDirection="row" paddingX={1} gap={1} alignItems="center">
         {Svg && <Svg source={CLAWD} alt="Clawd 吉祥物，戴着学士帽，举着教鞭，旁边有一个亮着的灯泡" width={104} />}
-        <Text dimColor>◀</Text>
+        {Svg && <Text dimColor>◀</Text>}
         <Box flexDirection="column" flexGrow={1} borderStyle="round" borderDimColor paddingX={1}>
           <Box flexDirection="row" justifyContent="space-between" alignItems="center" minHeight={2}>
             <Text bold>{c.title}</Text>

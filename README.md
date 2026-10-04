@@ -33,6 +33,11 @@ It is not listed in Claude's official directory; the repo itself is the marketpl
 
 Needs a Claude Code build that supports mods (2.1.287 or later). The mascot is drawn with the `Svg` element and has only been tried in the desktop app; elsewhere it is left out (untested).
 
+### 改了源码之后怎么更新 / Updating after you edit
+
+已装的是源码的一份拷贝，版本号不变时 `plugin update` 不会更新：改 `plugins/knowledge-card/.claude-plugin/plugin.json` 的 `version`，再执行 `claude plugin marketplace update knowledge-card`、`claude plugin update knowledge-card@knowledge-card`，最后在会话里 `/reload-plugins`。
+`plugin update` does nothing while the version number is unchanged: bump `version` in `plugin.json`, run `claude plugin marketplace update knowledge-card` and `claude plugin update knowledge-card@knowledge-card`, then `/reload-plugins`.
+
 ## 它怎么工作 / How it works
 
 1. 你发消息，插件记下这个任务。
@@ -55,7 +60,7 @@ Needs a Claude Code build that supports mods (2.1.287 or later). The mascot is d
 ## 费用与隐私 / Cost and privacy
 
 - 每张卡片是一次独立的小模型请求（输入约一两千 token），两次请求之间至少隔 20 秒；卡片还在屏幕上时一次都不调。这些调用计入你自己的账号额度。
-- 发给小模型的内容有：你的任务原话、主对话最近说的 3 段话（每段最多 400 字）、最近 14 次操作（命令只取前 120 个字）、最近 80 个学过的标题。看起来像密钥的内容（`Bearer …`、`sk-…`、`token=…`、`--password …`）会先替换成 `***`，但这只按常见写法识别，**不保证**所有密钥都认得出来。
+- 发给小模型的内容有：你的任务原话、主对话最近说的 3 段话（每段最多 400 字）、最近 14 次操作（命令只取前 120 个字）、最近 80 个学过的标题。看起来像密钥的内容（`Bearer …`、`sk-…`、`ghp_…`、`github_pat_…`、`glpat-…`、`AIza…`、JWT、私钥块、`https://用户:密码@…`、`token=…`、`--password …`）会先替换成 `***`，但这只按常见写法识别，**不保证**所有密钥都认得出来。
 - 学过的标题存在 Claude Code 给这个插件的本地存储里（`$.store`），不写你的项目目录，也不上传到别处。
 - 请求发给你自己的 Claude Code 账号所连接的服务，没有第三方。
 
